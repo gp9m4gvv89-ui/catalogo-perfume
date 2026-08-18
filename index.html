@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA Perfumes - Catálogo Exclusivo</title>
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --card-bg: #181b22;
+            --accent-gold: #d4af37;
+            --accent-hover: #f3c638;
+            --text-main: #f0f2f5;
+            --text-muted: #9ba1b0;
+            --whatsapp-green: #25d366;
+            --border-color: #2a2e39;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(15,17,21,1) 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .search-box input:focus {
+            outline: 1px solid var(--accent-gold);
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .filter-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            background: #232730;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.75);
+            color: var(--accent-gold);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            border: 1px solid var(--accent-gold);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-brand {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--text-main);
+            margin: 4px 0 8px 0;
+            font-weight: 600;
+        }
+
+        .card-notes {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        .btn-ws {
+            background-color: var(--whatsapp-green);
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-ws:hover {
+            background-color: #20ba5a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AURA PERFUMES</h1>
+        <p>Catálogo Digital & Fragancias Exclusivas</p>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Buscar perfume o marca...">
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterCategory('todos', this)">Todos</button>
+                <button class="filter-btn" onclick="filterCategory('hombre', this)">Hombre</button>
+                <button class="filter-btn" onclick="filterCategory('mujer', this)">Mujer</button>
+                <button class="filter-btn" onclick="filterCategory('unisex', this)">Unisex</button>
+            </div>
+        </div>
+
+        <div class="catalog-grid" id="catalogGrid">
+            
+            <div class="card" data-category="hombre" data-name="sauvage elixir dior">
+                <div class="card-img">
+                    ✨
+                    <span class="badge">Masculino</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-brand">Dior</span>
+                    <h3 class="card-title">Sauvage Elixir</h3>
+                    <p class="card-notes"><strong>Notas:</strong> Canela, Nuez moscada, Lavanda y Maderas ambaradas.</p>
+                    <div class="card-footer">
+                        <span class="price">$145.000</span>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%20el%20Sauvage%20Elixir" target="_blank" class="btn-ws">Pedir 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="mujer" data-name="good girl carolina herrera">
+                <div class="card-img">
+                    💎
+                    <span class="badge">Femenino</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-brand">Carolina Herrera</span>
+                    <h3 class="card-title">Good Girl EDP</h3>
+                    <p class="card-notes"><strong>Notas:</strong> Almendra, Café, Jazmín Sambac y Cacao dulce.</p>
+                    <div class="card-footer">
+                        <span class="price">$130.000</span>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%20Good%20Girl" target="_blank" class="btn-ws">Pedir 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="unisex" data-name="baccarat rouge 540 maison francis kurkdjian">
+                <div class="card-img">
+                    👑
+                    <span class="badge">Unisex</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-brand">Maison Francis Kurkdjian</span>
+                    <h3 class="card-title">Baccarat Rouge 540</h3>
+                    <p class="card-notes"><strong>Notas:</strong> Azafrán, Jazmín, Ámbar gris y Madera de cedro.</p>
+                    <div class="card-footer">
+                        <span class="price">$280.000</span>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%20Baccarat%20Rouge" target="_blank" class="btn-ws">Pedir 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="hombre" data-name="one million paco rabanne">
+                <div class="card-img">
+                    🔥
+                    <span class="badge">Masculino</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-brand">Paco Rabanne</span>
+                    <h3 class="card-title">1 Million Parfum</h3>
+                    <p class="card-notes"><strong>Notas:</strong> Mandarina sanguina, Canela, Cuero y Rosas.</p>
+                    <div class="card-footer">
+                        <span class="price">$115.000</span>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%201%20Million" target="_blank" class="btn-ws">Pedir 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="mujer" data-name="libre yves saint laurent">
+                <div class="card-img">
+                    🌸
+                    <span class="badge">Femenino</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-brand">Yves Saint Laurent</span>
+                    <h3 class="card-title">Libre EDP</h3>
+                    <p class="card-notes"><strong>Notas:</strong> Lavanda, Flor de azahar del naranjo y Vainilla de Madagascar.</p>
+                    <div class="card-footer">
+                        <span class="price">$138.000</span>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%20Libre%20YSL" target="_blank" class="btn-ws">Pedir 💬</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-category="unisex" data-name="khamrah lataffa arabe">
+                <div class="card-img">
+                    🌙
+                    <span class="badge">Árabe / Unisex</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-brand">Lattafa</span>
+                    <h3 class="card-title">Khamrah</h3>
+                    <p class="card-notes"><strong>Notas:</strong> Canela, Nuez moscada, Praliné, Vainilla y Habas Tonka.</p>
+                    <div class="card-footer">
+                        <span class="price">$75.000</span>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Me%20interesa%20Khamrah%20Lattafa" target="_blank" class="btn-ws">Pedir 💬</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 AURA Perfumes - Todos los derechos reservados</p>
+        <p>Envíos a todo el país | Pagos en Efectivo, Transferencia y Tarjetas</p>
+    </footer>
+
+    <script>
+        let currentCategory = 'todos';
+
+        function filterCategory(category, btn) {
+            currentCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const categoryMatch = (currentCategory === 'todos' || card.dataset.category === currentCategory);
+                const nameMatch = card.dataset.name.toLowerCase().includes(searchValue);
+
+                if (categoryMatch && nameMatch) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
